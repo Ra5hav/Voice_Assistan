@@ -1,38 +1,4 @@
-import streamlit as st
-import tempfile
-import os
-from openai import OpenAI
-from elevenlabs.client import ElevenLabs
-from elevenlabs import play, VoiceSettings
-from st_audiorec import st_audiorec
-import speech_recognition as sr
-
-# 🔐 API Keys
-OPENAI_API_KEY = "your-openai-api-key"
-ELEVENLABS_API_KEY = "your-elevenlabs-api-key"
-
-# 🔧 Initialize clients
-openai_client = OpenAI(api_key=OPENAI_API_KEY)
-eleven_client = ElevenLabs(api_key=ELEVENLABS_API_KEY)
-
-# 🎤 Recognize audio from .wav file
-def recognize_audio_file(audio_file_path):
-    recognizer = sr.Recognizer()
-    with sr.AudioFile(audio_file_path) as source:
-        audio = recognizer.record(source)
-    try:
-        return recognizer.recognize_google(audio)
-    except sr.UnknownValueError:
-        return "Sorry, I didn't catch that."
-
-# 💬 Send prompt to ChatGPT
-def ask_chatgpt(prompt):
-    response = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt}
-        ]
+import streaml
     )
     return response.choices[0].message.content
 
